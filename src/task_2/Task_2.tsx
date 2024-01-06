@@ -12,14 +12,18 @@ type PropsType = { isChecked: boolean, onSetIsChecked: () => void };
 // If click to Checkbox component Button not re-render
 
 export const Task_2 = () => {
+
+    console.log("Task_2 render")
+
+
     const [firstCount, setFirstCount] = useState(0);
     const [isChecked, setIsChecked] = useState(false);
 
     const handlePlusCountValueClick = useCallback(() => setFirstCount(prevFirstCount => prevFirstCount + 1)
-        ,[firstCount])
+        , [])
 
-    const handleSetIsChecked = useCallback(() => setIsChecked(!isChecked)
-        , [isChecked]);
+    const handleSetIsChecked = useCallback(() => setIsChecked(prevIsChecked=>!prevIsChecked)
+        , []);
 
     return (
         <div style={{...CONTAINER_STYLES} as any}>
@@ -29,13 +33,6 @@ export const Task_2 = () => {
         </div>
     );
 };
-
-export const Checkbox: FC<PropsType> = React.memo(({isChecked, onSetIsChecked}) => {
-    console.log("Checkbox render")
-    return (
-        <input type="checkbox" checked={isChecked} onChange={onSetIsChecked}/>
-    );
-})
 
 export const Button: FC<{ onPlusCountValueClick: () => void }> = React.memo(({onPlusCountValueClick}) => {
     console.log("Button render")
@@ -48,5 +45,12 @@ export const Button: FC<{ onPlusCountValueClick: () => void }> = React.memo(({on
                 Plus first counter
             </button>
         </div>
+    );
+})
+
+export const Checkbox: FC<PropsType> = React.memo(({isChecked, onSetIsChecked}) => {
+    console.log("Checkbox render")
+    return (
+        <input type="checkbox" checked={isChecked} onChange={onSetIsChecked}/>
     );
 })
